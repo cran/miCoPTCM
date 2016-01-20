@@ -1,0 +1,17 @@
+export(PTCMestimBF,PTCMestimSIMEX)
+importFrom(MASS, mvrnorm)
+import(nleqslv,survival, compiler, distr)
+importFrom("stats", "as.formula", "coef", "lm", "model.extract",
+             "model.frame", "model.matrix", "pnorm", "printCoefmat",
+             "rchisq", "rnorm", "rt", "runif", "var")
+importFrom("utils", "flush.console")
+S3method(PTCMestimBF, formula)
+S3method(PTCMestimBF, default)
+S3method(PTCMestimSIMEX, formula)
+S3method(PTCMestimSIMEX, default)
+S3method(print, PTCMestimBF)
+S3method(summary, PTCMestimBF)
+S3method(print,summary.PTCMestimBF)
+S3method(print, PTCMestimSIMEX)
+S3method(summary, PTCMestimSIMEX)
+S3method(print,summary.PTCMestimSIMEX)
