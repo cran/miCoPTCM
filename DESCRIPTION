@@ -1,8 +1,8 @@
 Package: miCoPTCM
 Type: Package
 Title: Promotion Time Cure Model with Mis-Measured Covariates
-Version: 1.0
-Date: 2015-12-21
+Version: 1.1
+Date: 2020-12-07
 Author: Aurelie Bertrand, Catherine Legrand, Ingrid Van Keilegom
 Maintainer: Aurelie Bertrand <aurelie.bertrand@uclouvain.be>
 Imports: MASS, nleqslv, survival, compiler, distr
@@ -11,6 +11,6 @@ Description: Fits Semiparametric Promotion Time Cure Models, taking into account
 			 in the covariates, using a backfitting approach to maximize the likelihood.
 License: GPL-2
 NeedsCompilation: no
-Packaged: 2016-01-20 15:24:34 UTC; aurbertrand
+Packaged: 2020-12-07 13:31:57 UTC; aurbertrand
 Repository: CRAN
-Date/Publication: 2016-01-20 17:07:03
+Date/Publication: 2020-12-07 14:40:02 UTC

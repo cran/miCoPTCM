@@ -1,3 +1,5 @@
+library(nleqslv)
+
 ###################################
 # Fonctions called by PTCMestimBF #
 ###################################
@@ -389,7 +391,7 @@ dataPreparation <- function(Dat,P,R)
   
 PTCMestimMY <- function(x,y,OmegaMatEstim,initMY,nBack,eps,multTimeMYestim)
 {
-	enableJIT(3)
+	#enableJIT(3)
 
 	Dat <- cbind(y,x)
 	n <- dim(y)[1]
@@ -449,11 +451,17 @@ PTCMestimBF <- function(x, ...) UseMethod("PTCMestimBF")
   # - data: a dataframe containing, in the first 2 columns, the observed times and censoring indicators, and then the covariates
   # - ...: additional arguments to be passed to PTCMestimBF.default
   
+  # Correction on 17/06/2020: make sure that matrix x always has colnames (even when it has only 1 column)
+  # Otherwise: problems when computing variance-covariance matrix of the estimator
+  
 PTCMestimBF.formula <- function(formula, data=list(), ...)
 {
 	mf <- model.frame(formula=formula, data=data)
-	x <- model.matrix(attr(mf, "terms"), data=mf)
-	x <- x[,-1]
+	x0 <- model.matrix(attr(mf, "terms"), data=mf)
+	x <- as.matrix(x0[,-1])
+	if(ncol(x)==1){
+	  colnames(x) <- colnames(x0)[2]
+	}
 	Y <- model.extract(mf, "response")
     if (!inherits(Y, "Surv")) 
         stop("Response must be a survival object")
@@ -692,7 +700,7 @@ SimexExtrapolation <- function(estimNui,variableNames,nbParam,Nu,orderExtrap)
 		
 PTCMestimSimex <- function(x,y,errorDistEstim,paramDistEstim,OmegaMatEstim,nBack,eps,Nu,B,initSimex,orderExtrap,multTimeMYestim)
 {
-	enableJIT(3)
+	#enableJIT(3)
 
 	Dat <- cbind(y,x)
 	n <- dim(Dat)[1]
@@ -756,11 +764,17 @@ PTCMestimSIMEX <- function(x, ...) UseMethod("PTCMestimSIMEX")
   # - data: a dataframe containing, in the first 2 columns, the observed times and censoring indicators, and then the covariates
   # - ...: additional arguments to be passed to PTCMestimSIMEX.default
 
+  # Correction on 17/06/2020: make sure that matrix x always has colnames (even when it has only 1 column)
+  # Otherwise: problems when computing variance-covariance matrix of the estimator
 PTCMestimSIMEX.formula <- function(formula, data=list(), ...)
 {
 	mf <- model.frame(formula=formula, data=data)
-	x <- model.matrix(attr(mf, "terms"), data=mf)
-	x <- x[,-1]
+	x0 <- model.matrix(attr(mf, "terms"), data=mf)
+	x <- as.matrix(x0[,-1])
+
+	if(ncol(x)==1){
+	  colnames(x) <- colnames(x0)[2]
+	}
 	Y <- model.extract(mf, "response")
     if (!inherits(Y, "Surv")) 
         stop("Response must be a survival object")
